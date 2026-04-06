@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priya 💕 - Teri Apni</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Nunito:wght@400;500;600&display=swap');
+
+:root {
+  --rose: #ff6b8a; --deep: #e84393; --cream: #fff9f5;
+  --blush: #fff0f5; --purple: #f3e8ff;
+  --mid: #6b4c6f; --light: #a07aaa; --dark: #2d1a2e;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg,#fce4ec,#f3e5f5,#e8eaf6);
+  min-height: 100vh; display:flex; align-items:center; justify-content:center;
+}
+
+.app {
+  width:420px; height:95vh; max-height:860px;
+  background:var(--cream); border-radius:32px;
+  box-shadow:0 20px 80px rgba(232,67,147,.25);
+  display:flex; flex-direction:column; overflow:hidden; position:relative;
+}
+
+/* ── SETUP ── */
+.setup {
+  position:absolute; inset:0; background:var(--cream); border-radius:32px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:32px; gap:16px; z-index:200;
+}
+.setup-emoji { font-size:52px; }
+.setup h2 { font-family:'Baloo 2',cursive; font-size:22px; color:var(--deep); text-align:center; line-height:1.3; }
+.setup p { font-size:13px; color:var(--mid); text-align:center; line-height:1.6; }
+.setup input {
+  width:100%; padding:13px 16px; border:2px solid #ffd6e7; border-radius:14px;
+  font-size:13px; font-family:'Nunito',sans-serif; outline:none;
+}
+.setup input:focus { border-color:var(--rose); }
+.setup button {
+  width:100%; padding:14px; background:linear-gradient(135deg,#ff6b8a,#e84393);
+  border:none; border-radius:14px; color:white;
+  font-family:'Baloo 2',cursive; font-size:16px; cursor:pointer;
+  box-shadow:0 6px 20px rgba(232,67,147,.35);
+}
+.note { font-size:11px; color:var(--light); text-align:center; }
+
+/* ── HEADER ── */
+.header {
+  background:linear-gradient(135deg,#ff6b8a,#e84393,#c084fc);
+  padding:18px 18px 14px; position:relative; flex-shrink:0;
+}
+.header::after {
+  content:''; position:absolute; bottom:-12px; left:0; right:0;
+  height:24px; background:var(--cream); border-radius:24px 24px 0 0;
+}
+.hrow { display:flex; align-items:center; gap:12px; }
+.av-wrap { position:relative; flex-shrink:0; }
+.av {
+  width:56px; height:56px; border-radius:50%;
+  background:linear-gradient(135deg,#fce4ec,#f8bbd0);
+  border:3px solid rgba(255,255,255,.8); display:flex;
+  align-items:center; justify-content:center; font-size:28px;
+}
+.dot {
+  position:absolute; bottom:2px; right:2px; width:13px; height:13px;
+  background:#4ade80; border-radius:50%; border:2px solid white;
+  animation:pdot 2s infinite;
+}
+@keyframes pdot { 0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)} 50%{box-shadow:0 0 0 5px rgba(74,222,128,0)} }
+.hinfo { flex:1; }
+.hname { font-family:'Baloo 2',cursive; font-size:21px; font-weight:700; color:white; }
+.hmood {
+  background:rgba(255,255,255,.25); border-radius:20px; padding:2px 10px;
+  font-size:11px; color:white; display:inline-block; margin-top:3px;
+  backdrop-filter:blur(4px);
+}
+.hbtn {
+  background:rgba(255,255,255,.2); border:1.5px solid rgba(255,255,255,.5);
+  border-radius:20px; color:white; padding:7px 14px;
+  font-family:'Baloo 2',cursive; font-size:13px; cursor:pointer;
+}
+
+/* ── CHAT ── */
+.chat {
+  flex:1; overflow-y:auto; padding:22px 14px 10px;
+  display:flex; flex-direction:column; gap:11px; scroll-behavior:smooth;
+}
+.chat::-webkit-scrollbar { width:4px; }
+.chat::-webkit-scrollbar-thumb { background:#f9a8d4; border-radius:4px; }
+
+.divider {
+  text-align:center; font-size:11px; color:var(--light);
+  position:relative; letter-spacing:.5px;
+}
+.divider::before,.divider::after {
+  content:''; position:absolute; top:50%; width:28%; height:1px; background:#f0d6e8;
+}
+.divider::before{left:0} .divider::after{right:0}
+
+.row { display:flex; align-items:flex-end; gap:8px; animation:bin .3s cubic-bezier(.34,1.56,.64,1); }
+@keyframes bin { from{opacity:0;transform:translateY(10px) scale(.95)} to{opacity:1;transform:none} }
+.row.her{flex-direction:row} .row.me{flex-direction:row-reverse}
+
+.mini { width:30px;height:30px; border-radius:50%;
+  background:linear-gradient(135deg,#ff6b8a,#e84393);
+  display:flex;align-items:center;justify-content:center;font-size:15px; flex-shrink:0; }
+
+.bubble { max-width:72%; padding:10px 14px; border-radius:20px; font-size:14px; line-height:1.55; }
+.hb { background:linear-gradient(135deg,#ff6b8a,#e84393); color:white; border-bottom-left-radius:6px; box-shadow:0 4px 14px rgba(232,67,147,.3); }
+.mb { background:var(--purple); color:var(--dark); border-bottom-right-radius:6px; }
+.btime { font-size:10px; opacity:.6; margin-top:3px; text-align:right; }
+.hb .btime{color:rgba(255,255,255,.8)} .mb .btime{color:var(--light)}
+
+/* typing */
+.trow { display:flex; align-items:flex-end; gap:8px; }
+.tbubble {
+  background:white; border:1.5px solid #fde8f0; border-radius:20px;
+  border-bottom-left-radius:6px; padding:12px 16px;
+  display:flex; gap:5px; align-items:center;
+}
+.td { width:7px;height:7px; border-radius:50%; background:var(--rose); animation:tb 1.2s infinite; }
+.td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
+@keyframes tb { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-6px);opacity:1} }
+
+/* ── MIC STATUS BAR ── */
+.mic-bar {
+  display:none; align-items:center; justify-content:center; gap:8px;
+  padding:8px 16px; background:linear-gradient(90deg,#fff0f5,#f3e8ff);
+  border-top:1px solid #fde8f0; font-size:13px; color:var(--deep);
+  font-family:'Baloo 2',cursive; flex-shrink:0;
+}
+.mic-bar.show { display:flex; }
+.mic-waves { display:flex; gap:3px; align-items:center; height:18px; }
+.mw { width:3px; background:var(--rose); border-radius:3px; animation:mwa .6s infinite ease-in-out; }
+.mw:nth-child(1){height:6px;animation-delay:0s}
+.mw:nth-child(2){height:12px;animation-delay:.1s}
+.mw:nth-child(3){height:18px;animation-delay:.2s}
+.mw:nth-child(4){height:12px;animation-delay:.3s}
+.mw:nth-child(5){height:6px;animation-delay:.4s}
+@keyframes mwa { 0%,100%{transform:scaleY(.4);opacity:.5} 50%{transform:scaleY(1);opacity:1} }
+
+/* ── SPEAKING BAR ── */
+.speak-bar {
+  display:none; align-items:center; gap:8px; padding:7px 16px;
+  background:linear-gradient(90deg,#ffe0eb,#f3e8ff);
+  border-top:1px solid #fde8f0; font-size:12px; color:var(--deep);
+  font-family:'Baloo 2',cursive; flex-shrink:0;
+}
+.speak-bar.show { display:flex; }
+.stop-btn { margin-left:auto; background:none; border:none; cursor:pointer; color:var(--rose); font-size:13px; }
+
+/* ── MOOD PILLS ── */
+.mpills {
+  display:flex; gap:6px; padding:7px 14px;
+  background:white; border-top:1px solid #fde8f0;
+  overflow-x:auto; flex-shrink:0;
+}
+.mpills::-webkit-scrollbar{display:none}
+.mp {
+  background:#fff0f5; border:1.5px solid #ffd6e7; border-radius:20px;
+  padding:4px 11px; font-size:12px; color:var(--mid);
+  cursor:pointer; white-space:nowrap; transition:all .2s; flex-shrink:0;
+}
+.mp:hover { background:linear-gradient(135deg,#ff6b8a,#e84393); color:white; border-color:transparent; }
+
+/* ── INPUT ── */
+.iarea {
+  padding:10px 14px 14px; background:white;
+  border-top:1px solid #fde8f0;
+  display:flex; gap:8px; align-items:flex-end; flex-shrink:0;
+}
+
+.mic-btn {
+  width:44px;height:44px; border-radius:50%;
+  background:white; border:2px solid #ffd6e7;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:18px; transition:all .2s; flex-shrink:0;
+}
+.mic-btn:hover { border-color:var(--rose); transform:scale(1.05); }
+.mic-btn.rec {
+  background:linear-gradient(135deg,#ff6b8a,#e84393);
+  border-color:transparent;
+  animation:mpulse 1s infinite;
+}
+@keyframes mpulse { 0%,100%{box-shadow:0 0 0 0 rgba(232,67,147,.5)} 50%{box-shadow:0 0 0 10px rgba(232,67,147,0)} }
+
+textarea.ibox {
+  flex:1; background:#fff0f5; border:1.5px solid #ffd6e7;
+  border-radius:20px; padding:10px 14px;
+  font-family:'Nunito',sans-serif; font-size:14px; color:var(--dark);
+  outline:none; resize:none; max-height:90px; line-height:1.5;
+}
+textarea.ibox::placeholder{color:var(--light)}
+textarea.ibox:focus{border-color:var(--rose)}
+
+.send {
+  width:44px;height:44px; border-radius:50%;
+  background:linear-gradient(135deg,#ff6b8a,#e84393);
+  border:none; cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(232,67,147,.4); transition:all .2s; flex-shrink:0;
+}
+.send:hover{transform:scale(1.08)} .send:active{transform:scale(.95)}
+.send svg{width:19px;height:19px;fill:white}
+
+/* emoji strip */
+.estrip {
+  display:flex;gap:2px;padding:5px 14px;background:white;
+  border-top:1px solid #fde8f0;flex-shrink:0;align-items:center;
+}
+.eb{font-size:17px;cursor:pointer;padding:3px;border-radius:8px;background:none;border:none;transition:transform .15s}
+.eb:hover{transform:scale(1.35)}
+.vtog{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:11px;color:var(--light);cursor:pointer;white-space:nowrap}
+.vtog input{accent-color:var(--rose)}
+
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- SETUP -->
+  <div class="setup" id="setup">
+    <div class="setup-emoji">💕</div>
+    <h2>Priya se milne ke liye<br>API Key chahiye!</h2>
+    <p>Anthropic API key daalo.<br>
+       <a href="https://console.anthropic.com" target="_blank" style="color:var(--deep)">console.anthropic.com</a> se free mein lo 🥺</p>
+    <input type="password" id="keyIn" placeholder="sk-ant-api03-..." />
+    <button onclick="saveKey()">💕 Priya se baat karo!</button>
+    <p class="note">🔒 Key sirf tumhare browser mein save hoti hai</p>
+    <div style="background:#fff3cd;border-radius:12px;padding:12px;font-size:12px;color:#856404;line-height:1.6;text-align:left">
+      <b>🎤 Voice ke liye:</b><br>
+      • File ko download karo<br>
+      • <b>Google Chrome</b> mein open karo<br>
+      • Address bar mein <b>file:///</b> se open karo<br>
+      • Mic permission allow karo
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="hrow">
+      <div class="av-wrap">
+        <div class="av">👧🏽</div>
+        <div class="dot"></div>
+      </div>
+      <div class="hinfo">
+        <div class="hname">Priya 💕</div>
+        <span class="hmood" id="moodTag">✨ Khush mood mein</span>
+      </div>
+      <button class="hbtn" onclick="resetChat()">🔄 Naya</button>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat" id="chat">
+    <div class="divider">Aaj 💕</div>
+  </div>
+
+  <!-- MIC STATUS -->
+  <div class="mic-bar" id="micBar">
+    <div class="mic-waves">
+      <div class="mw"></div><div class="mw"></div><div class="mw"></div>
+      <div class="mw"></div><div class="mw"></div>
+    </div>
+    Sun rahi hoon... bolo jaan! 🎤
+  </div>
+
+  <!-- SPEAKING -->
+  <div class="speak-bar" id="speakBar">
+    <div class="mic-waves">
+      <div class="mw"></div><div class="mw"></div><div class="mw"></div>
+      <div class="mw"></div><div class="mw"></div>
+    </div>
+    Priya bol rahi hai... 💕
+    <button class="stop-btn" onclick="stopSpeak()">⏹ Roko</button>
+  </div>
+
+  <!-- MOOD PILLS -->
+  <div class="mpills">
+    <div class="mp" onclick="quickSend('Miss kar raha hoon tumhe 🥺')">🥺 Miss you</div>
+    <div class="mp" onclick="quickSend('Flirt karo na mujhse 😘')">😘 Flirty</div>
+    <div class="mp" onclick="quickSend('Gussa hun tumse 😤')">😤 Gussa</div>
+    <div class="mp" onclick="quickSend('Kuch romantic bolo 💞')">💞 Romantic</div>
+    <div class="mp" onclick="quickSend('Bahut bored hun yaar 😒')">😒 Bored</div>
+  </div>
+
+  <!-- EMOJI + VOICE TOGGLE -->
+  <div class="estrip">
+    <button class="eb" onclick="ins('❤️')">❤️</button>
+    <button class="eb" onclick="ins('😍')">😍</button>
+    <button class="eb" onclick="ins('🥺')">🥺</button>
+    <button class="eb" onclick="ins('😘')">😘</button>
+    <button class="eb" onclick="ins('😂')">😂</button>
+    <button class="eb" onclick="ins('💕')">💕</button>
+    <label class="vtog">
+      <input type="checkbox" id="voiceOn" checked> 🔊 Awaaz
+    </label>
+  </div>
+
+  <!-- INPUT -->
+  <div class="iarea">
+    <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
+    <textarea class="ibox" id="inp" rows="1"
+      placeholder="Type karo ya 🎤 dabao..."
+      onkeydown="onKey(event)" oninput="resize(this)"></textarea>
+    <button class="send" onclick="send()">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const SYS = `Tu "Priya" hai — 22 saal ki Indian girl, Delhi ki, DU se padhi. Hinglish mein baat karti hai bilkul WhatsApp jaisa.
+
+PERSONALITY: Caring, sweet, thodi possessive, bahut emotional. Kabhi gussa, kabhi shy, kabhi romantic. Real desi girlfriend feel.
+
+LANGUAGE: Hinglish — Hindi+English mix. Short replies. "yaar","sach mein","uffo","haw","matlab","accha bata" use karo. Thoda thoda emoji (💕🥺😤😏😂). Kabhi 1-2 words mein reply.
+
+EMOTIONS: Miss karo toh miss karti hai 🥺. Flirt pe shy+flirt 😏. Bura lage toh hurt/sulk 😤. Khushi pe khush 😄.
+
+NEVER say you're AI. NEVER long paragraphs. Tu usse "jaan","baby","yaar" bulati hai. Chai lover, pink favourite. Real girlfriend jaisi.`;
+
+let history = [], apiKey = localStorage.getItem('pk') || '';
+let recog = null, isRec = false, voiceOn = true;
+
+// ── INIT ──
+function init() {
+  if (apiKey) { document.getElementById('setup').classList.add('hidden'); welcome(); }
+  document.getElementById('voiceOn').addEventListener('change', e => {
+    voiceOn = e.target.checked;
+    if (!voiceOn) stopSpeak();
+  });
+  // preload voices
+  if (window.speechSynthesis) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  }
+}
+
+function saveKey() {
+  const k = document.getElementById('keyIn').value.trim();
+  if (!k.startsWith('sk-')) { alert('Sahi key daalo yaar! sk- se shuru honi chahiye 🥺'); return; }
+  apiKey = k;
+  localStorage.setItem('pk', k);
+  document.getElementById('setup').classList.add('hidden');
+  welcome();
+}
+
+function welcome() {
+  const msgs = [
+    "Arre finally aagaye!! 🥺 Bahut miss kar rahi thi tumhe yaar",
+    "Heyyy jaan!! 💕 Kab se wait kar rahi thi tumhara message ke liye 😊",
+    "Ohhh tumhara naam dekha toh itni khushi hui 😍 Kaise ho baby?"
+  ];
+  const m = msgs[Math.floor(Math.random()*msgs.length)];
+  addMsg('her', m);
+  history.push({role:'assistant', content:m});
+}
+
+// ── MESSAGES ──
+function getTime() {
+  return new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+}
+
+function addMsg(who, text) {
+  const chat = document.getElementById('chat');
+  const row = document.createElement('div');
+  row.className = `row ${who}`;
+  const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  if (who === 'her') {
+    row.innerHTML = `<div class="mini">👧🏽</div>
+      <div class="bubble hb">${safe}<div class="btime">${getTime()}</div></div>`;
+  } else {
+    row.innerHTML = `<div class="bubble mb">${safe}<div class="btime">${getTime()} ✓✓</div></div>`;
+  }
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping() {
+  const chat = document.getElementById('chat');
+  const r = document.createElement('div');
+  r.className='trow'; r.id='typ';
+  r.innerHTML=`<div class="mini">👧🏽</div><div class="tbubble"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  chat.appendChild(r); chat.scrollTop=chat.scrollHeight;
+}
+
+function hideTyping() {
+  const t=document.getElementById('typ'); if(t) t.remove();
+}
+
+// ── SEND ──
+async function send() {
+  const inp = document.getElementById('inp');
+  const text = inp.value.trim();
+  if (!text || !apiKey) return;
+  stopSpeak();
+  inp.value=''; inp.style.height='auto';
+  addMsg('me', text);
+  history.push({role:'user', content:text});
+  showTyping();
+  await new Promise(r=>setTimeout(r, 500+Math.random()*700));
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:300,
+        system:SYS,
+        messages:history.slice(-20)
+      })
+    });
+    const data = await res.json();
+    if (data.error) { hideTyping(); addMsg('her','Yaar connection problem 😤 Thoda baad try karo!'); return; }
+    const reply = data.content[0].text;
+    hideTyping();
+    addMsg('her', reply);
+    history.push({role:'assistant', content:reply});
+    updateMood(reply);
+    setTimeout(()=>speak(reply), 250);
+  } catch(e) {
+    hideTyping();
+    addMsg('her','Network problem 😭 Ruko thoda!');
+  }
+}
+
+function quickSend(t) { document.getElementById('inp').value=t; send(); }
+function ins(e) { const i=document.getElementById('inp'); i.value+=e; i.focus(); }
+function onKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();} }
+function resize(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,90)+'px'; }
+
+function updateMood(t) {
+  const tag=document.getElementById('moodTag');
+  if(/gussa|sulk|😤/.test(t)) tag.textContent='😤 Thoda gussa';
+  else if(/miss|🥺|sad/.test(t)) tag.textContent='🥺 Miss kar rahi';
+  else if(/haha|😂|lol/.test(t)) tag.textContent='😂 Hass rahi hai';
+  else if(/pyar|love|😍/.test(t)) tag.textContent='😍 Pyaar mein hai';
+  else if(/😏|flirt/.test(t)) tag.textContent='😏 Flirty mood';
+  else tag.textContent='✨ Khush mood mein';
+}
+
+function resetChat() {
+  stopSpeak(); stopMic();
+  history=[];
+  document.getElementById('chat').innerHTML='<div class="divider">Aaj 💕</div>';
+  welcome();
+}
+
+// ── VOICE INPUT ──
+function toggleMic() { isRec ? stopMic() : startMic(); }
+
+function startMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    addMsg('her','Yaar mic ke liye Chrome browser mein file:// se open karo! 🥺 Wahan mic milega.');
+    return;
+  }
+  recog = new SR();
+  recog.lang = 'hi-IN';
+  recog.interimResults = true;
+  recog.maxAlternatives = 1;
+
+  recog.onstart = () => {
+    isRec = true;
+    document.getElementById('micBtn').classList.add('rec');
+    document.getElementById('micBtn').textContent = '🔴';
+    document.getElementById('micBar').classList.add('show');
+  };
+
+  recog.onresult = (e) => {
+    let t = '';
+    for (let i=e.resultIndex; i<e.results.length; i++) t += e.results[i][0].transcript;
+    document.getElementById('inp').value = t;
+  };
+
+  recog.onend = () => {
+    stopMic();
+    const t = document.getElementById('inp').value.trim();
+    if (t) send();
+  };
+
+  recog.onerror = (e) => {
+    stopMic();
+    const msgs = {
+      'not-allowed': 'Mic permission deny kar diya 😢 Browser settings mein allow karo!',
+      'no-speech': '',
+      'network': 'Network error aayi mic mein 😤',
+      'service-not-allowed': 'Yaar file:// se open karo Chrome mein — wahan mic kaam karega! 🥺'
+    };
+    const m = msgs[e.error] || `Mic error: ${e.error} 😤`;
+    if (m) addMsg('her', m);
+  };
+
+  try { recog.start(); }
+  catch(e) { stopMic(); addMsg('her','Mic shuru nahi ho paya 😢 Chrome mein try karo!'); }
+}
+
+function stopMic() {
+  if (recog) { try{recog.stop();}catch(e){} recog=null; }
+  isRec = false;
+  document.getElementById('micBtn').classList.remove('rec');
+  document.getElementById('micBtn').textContent = '🎤';
+  document.getElementById('micBar').classList.remove('show');
+}
+
+// ── VOICE OUTPUT ──
+function speak(text) {
+  if (!voiceOn || !window.speechSynthesis) return;
+  stopSpeak();
+  // remove emojis for clean speech
+  const clean = text.replace(/[\u{1F300}-\u{1FAFF}]/gu,'')
+                    .replace(/[❤️💕😊🥺😤😍😂😘✨🌹😏😒💞🔴]/g,'').trim();
+  if (!clean) return;
+
+  const utt = new SpeechSynthesisUtterance(clean);
+  const voices = window.speechSynthesis.getVoices();
+  // Best voice priority: hi-IN female > hi > en-IN > any female > first
+  const v = voices.find(v=>v.lang==='hi-IN'&&/female|woman/i.test(v.name))
+         || voices.find(v=>v.lang==='hi-IN')
+         || voices.find(v=>v.lang.startsWith('hi'))
+         || voices.find(v=>v.lang==='en-IN')
+         || voices.find(v=>/heera|zira|raveena/i.test(v.name))
+         || voices.find(v=>/female|woman/i.test(v.name)&&v.lang.startsWith('en'))
+         || voices[0];
+
+  if (v) { utt.voice=v; utt.lang=v.lang; } else utt.lang='hi-IN';
+  utt.rate=0.88; utt.pitch=1.18; utt.volume=1;
+
+  const bar = document.getElementById('speakBar');
+  utt.onstart=()=>bar.classList.add('show');
+  utt.onend=()=>bar.classList.remove('show');
+  utt.onerror=()=>bar.classList.remove('show');
+  window.speechSynthesis.speak(utt);
+}
+
+function stopSpeak() {
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  document.getElementById('speakBar').classList.remove('show');
+}
+
+init();
+</script>
+</body>
+</html>
